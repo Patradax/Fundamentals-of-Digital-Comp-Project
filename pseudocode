@@ -1,0 +1,19 @@
+
+[] == means not part of code but simple explanation
+
+
+
+program start
+[ask user for any symptoms]
+how would you rate your stress out of 10?
+user input : stresslevel
+what is your temperature as of now?
+user input : temp
+[continue asking questions if needed]
+
+[at end of question]
+sympoms recorded, please wait while we process them...
+Done! Here's what you might have
+print possible_illness
+if your illness is dangerous, please seek treatment at a nearby clinic or hospital
+
