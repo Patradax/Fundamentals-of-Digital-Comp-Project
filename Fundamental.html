@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Symptom Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f8fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 450px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Symptom Checker</h2>
+    <form id="symptomForm">
+      <label>How would you rate your stress out of 10?</label>
+      <input type="number" id="stress" min="0" max="10" placeholder="Enter stress level" required>
+
+      <label>What is your temperature as of now?</label>
+      <input type="number" id="temp" step="0.1" placeholder="Enter temperature (°C)" required>
+
+      <label>How many hours did you sleep last night?</label>
+      <input type="number" id="sleep" min="0" max="24" placeholder="Enter hours of sleep" required>
+
+      <label>Do you currently have a cough?</label>
+      <select id="cough" required>
+        <option value="">-- Select --</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <label>Do you currently have a headache?</label>
+      <select id="headache" required>
+        <option value="">-- Select --</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <button type="submit" class="btn">Submit</button>
+    </form>
+
+    <div class="result" id="resultBox">
+      <p id="illness"></p>
+      <p>⚠️ If your illness is dangerous, please seek treatment at a nearby clinic or hospital.</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("symptomForm");
+    const resultBox = document.getElementById("resultBox");
+    const illnessText = document.getElementById("illness");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      let stress = parseInt(document.getElementById("stress").value);
+      let temp = parseFloat(document.getElementById("temp").value);
+      let sleep = parseInt(document.getElementById("sleep").value);
+      let cough = document.getElementById("cough").value;
+      let headache = document.getElementById("headache").value;
+
+      let illness = "Mild condition (monitor your health)";
+
+      // Diagnosis logic
+      if (stress <= 5 && temp >= 36 && temp <= 37.2 && sleep >= 7 && cough === "no" && headache === "no") {
+        illness = "You seem healthy ✅ Keep it up!";
+      }
+      else if (temp > 38 && cough === "yes") {
+        illness = "Possible flu or fever 🤒 (consider visiting a doctor)";
+      }
+      else if (stress > 7 && sleep < 5) {
+        illness = "High stress and lack of sleep 💤 (try to rest more)";
+      }
+      else if (headache === "yes" && stress > 6) {
+        illness = "Stress-induced headache (relaxation recommended)";
+      }
+      else if (cough === "yes" && temp <= 37.5) {
+        illness = "Mild cold or sore throat (stay warm and hydrated)";
+      }
+
+      illnessText.innerHTML = "✅ Done! Here's what you might have: <em>" + illness + "</em>";
+      resultBox.style.display = "block";
+    });
+  </script>
+</body>
+</html>
