@@ -4,16 +4,46 @@
 
 
 program start
-[ask user for any symptoms]
+[ask user for multiple symptoms]
+
 how would you rate your stress out of 10?
-user input : stresslevel
+user input : stress level
+
 what is your temperature as of now?
 user input : temp
-[continue asking questions if needed]
 
-[at end of question]
-sympoms recorded, please wait while we process them...
+how many hours did you sleep last night?
+user input : sleep
+
+do you currently have a cough? (yes/no)
+user input : y/n
+
+do you currently have a headache? (yes/no)
+user input : y/n
+
+[at end of questions]
 Done! Here's what you might have
-print possible_illness
-if your illness is dangerous, please seek treatment at a nearby clinic or hospital
+
+[diagnosis conditions]
+if stress <= 5 AND temp between 36 and 37.2 AND sleep >= 7 AND cough = no AND headache = no
+    illness = "You seem healthy ✅ Keep it up!"
+
+else if temp > 38 AND cough = yes
+    illness = "Possible flu or fever 🤒 (consider visiting a doctor)"
+
+else if stress > 7 AND sleep < 5
+    illness = "High stress and lack of sleep 💤 (try to rest more)"
+
+else if headache = yes AND stress > 6
+    illness = "Stress-induced headache (relaxation recommended)"
+
+else if cough = yes AND temp <= 37.5
+    illness = "Mild cold (stay warm and hydrated)"
+
+else
+    illness = "Mild condition (monitor your health)"
+
+print illness
+if illness is dangerous
+    advise user to seek treatment at a nearby clinic or hospital
 
