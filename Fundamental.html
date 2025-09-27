@@ -100,6 +100,16 @@
     const resultBox = document.getElementById("resultBox");
     const illnessText = document.getElementById("illness");
 
+    //limit temperature input to allow valid & realistic values only
+    const tempInput = document.getElementById("temp");
+    tempInput.addEventListener("input", function () {
+    if (this.value < 30 || this.value > 45) {
+      this.setCustomValidity("Please enter a realistic body temperature between 30–45 °C");
+    } else {
+      this.setCustomValidity(""); 
+    }
+  });
+
     form.addEventListener("submit", function(event) {
       event.preventDefault();
 
